@@ -13,5 +13,10 @@
                     templateUrl: "app/game/game.html",
                     controller: "GameController"
                 })
+                .state("dataEntry", {
+                    url: "/dataEntry/:gameKey",
+                    templateUrl: "app/dataEntry/dataEntry.html",
+                    controller: "DataEntryController"
+                })
         })
 }());

@@ -7,7 +7,8 @@
                 var form = { name: $scope.gameName };
                 $http.post("/api/game", form).success(function(data){
                     $('#configure').modal('hide');
-                    alert("Created");
+                    $('body').removeClass('modal-open');
+                    $state.go("dataEntry", {"gameKey": data.key});
                 }).error(function(data){
                     alert("Error");
                 });
