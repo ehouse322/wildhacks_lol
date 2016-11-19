@@ -29,6 +29,7 @@ app.get('/', function(req,res){
 const userGamesController = require("./server/controller/usergames.controller");
 const gameController = require("./server/controller/game.controller");
 // Game Controller
+app.get("/api/game", gameController.getGames);
 app.post("/api/game", gameController.addGame);
 // User Game Controller
 app.get("/api/usergames/:summonerName/:region", userGamesController.getGames);

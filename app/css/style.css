@@ -1,9 +1,12 @@
 .container {
     margin-top: 4%;
 }
-.home h3 {
+.modal h4, .container h3 {
     text-align: center;
 }
-.home #viewGameStats {
+.home #viewGameStats, a {
 	cursor: pointer;
+}
+#configure {
+    margin-top: 5%;
 }

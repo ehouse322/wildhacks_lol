@@ -8,11 +8,6 @@
                     templateUrl: "app/home/home.html",
                     controller: "HomeController"
                 })
-                .state("configure", {
-                    url: "/configure",
-                    templateUrl: "app/configure/configure.html",
-                    controller: "ConfigureController"
-                })
                 .state("game", {
                     url: "/game",
                     templateUrl: "app/game/game.html",

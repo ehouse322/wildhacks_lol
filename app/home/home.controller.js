@@ -1,20 +1,19 @@
 (function(){
     angular.module("leagueOfScrubs")
     .controller("HomeController",["$scope", "$state", "$http", function($scope, $state, $http){
-    	$scope.region = "na";
-    	$scope.getChampInfo = function(championID) {
-    		var url = "/api/champs/" + championID
-    		window.location.href = url
-    	}
+        $scope.action = "Create";
+        $scope.submitForm = function (action) {
+            if (action == "Create") {
+                var form = { name: $scope.gameName };
+                $http.post("/api/game", form).success(function(data){
+                    $('#configure').modal('hide');
+                    alert("Created");
+                }).error(function(data){
+                    alert("Error");
+                });
+            } else {
 
-        $scope.getGames = function (summonerName, region) {
-        	$scope.gameInfo = undefined;
-            var url = "/api/usergames/" + summonerName + "/" + region;
-            $http.get(url).success(function(data){
-            	$scope.gameInfo = "success";
-            }).error(function(data){
-            	$scope.gameInfo = "error";
-            });
+            }
         }
     }]);
 }());
