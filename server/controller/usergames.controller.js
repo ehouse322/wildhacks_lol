@@ -6,10 +6,10 @@ module.exports.getGames = function (req, res) {
     const region = req.params.region;
     const url = "https://" + region + ".api.pvp.net/api/lol/" + region + "/v1.4/summoner/by-name/" + summonerName + "?api_key=" + leagueKey;
     request({ uri: url, method: "GET" }, function(err, response, body){
-        const data = JSON.parse(body);
         if (err) {
-            res.sendStatus(err);
+            res.sendStatus(404);
         }
+        const data = JSON.parse(body);
         if (data.status) {
             res.sendStatus(data.status.status_code);
         } else {

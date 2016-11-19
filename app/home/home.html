@@ -1,16 +1,38 @@
 <div class="container">
     <div class="home">
         <h3>League Live Stats</h3>
-        <div class="col-md-6 col-md-offset-3">
-            <div class="col-md-10">
-                <input class="form-control" placeholder="User Tag" id="userid" ng-model="name" ng-enter="getGames(name, region)"/>
-            </div>
-            <div class="col-md-2">
-                <select class="form-control" ng-model="region">
-                    <option>na</option>
-                    <option>eu</option>
-                </select>
-            </div>
+        <div class="row">
+	        <div class="col-md-6 col-md-offset-3">
+	            <div class="col-md-2">
+	                <select class="form-control" ng-model="region">
+	                    <option>na</option>
+	                    <option>eu</option>
+	                </select>
+	            </div>
+	            <div class="col-md-10">
+	            	<input class="form-control" placeholder="User Tag" id="userid" ng-model="name" ng-enter="getGames(name, region)"/>
+	            </div>
+	        </div>
         </div>
+        <br>
+        <div class="row">
+        	<div class="col-md-6 col-md-offset-3">
+		        <div class="panel panel-default" ng-if="gameInfo=='success'" ng-click="COOL" id="viewGameStats">
+		        	<div class="panel-body">
+		        		View Game Stats
+		    		</div>
+				</div>
+				<div class="panel panel-danger" ng-if="gameInfo=='error'" ng-click="COOL">
+		        	<div class="panel-heading">
+		        		No Game Found
+		    		</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<input class="form-control" placeholder="">
+			</div>
+		</div>
     </div>
 </div>

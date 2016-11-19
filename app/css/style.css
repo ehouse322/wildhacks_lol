@@ -4,3 +4,6 @@
 .home h3 {
     text-align: center;
 }
+.home #viewGameStats {
+	cursor: pointer;
+}
