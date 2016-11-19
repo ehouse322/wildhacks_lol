@@ -41,6 +41,18 @@ module.exports.getGame = function (req, res) {
         });
 }
 
+module.exports.editGame = function (req, res) {
+    Game.
+        findOneAndUpdate({key: req.body.key}, req.body).
+        exec().
+        then((game) => {
+            res.json(game);
+        }).
+        catch((err) => {
+            res.sendStatus(err);
+        });
+}
+
 const choose = function (choices) {
   var index = Math.floor(Math.random() * choices.length);
   return choices[index];

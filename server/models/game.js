@@ -2,8 +2,8 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var GameSchema = new Schema({
-    red:            String,
-    blue:           String,
+    red:            [],
+    blue:           [],
     name:           String,
     startTime:      Date,
     endTime:        Date,
