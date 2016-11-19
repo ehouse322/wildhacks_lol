@@ -12,7 +12,8 @@
             var url = "/api/usergames/" + summonerName + "/" + region;
             $http.get(url).success(function(data){
             	$scope.gameInfo = "success";
-                console.log(data);
+            }).error(function(data){
+            	$scope.gameInfo = "error";
             });
         }
     }]);

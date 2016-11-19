@@ -11,24 +11,27 @@ module.exports.getGames = function (req, res) {
         } else {
             const data = JSON.parse(body);
             if (data.status) {
-                res.sendStatus(data.status.status_code);
+                res.sendStatus(404);
             } else {
                 const id = data[summonerName].id;
-                requestLiveData(region, id, function(results){
-                    res.json(results);
-                });
+                requestLiveData(region, id, res);
             }
         }
     });
 }
 
-const requestLiveData = function(region, summonerId, resFunc) {
+const requestLiveData = function(region, summonerId, res) {
     const url = "https://" + region + ".api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/" + region + '1/' + summonerId + "?api_key=" + leagueKey;
     request({ uri: url, method: "GET" }, function(err, response, body){
         if (err || body == undefined) {
-            res.send(err);
+            res.sendStatus(404);
         } else {
-            resFunc(JSON.parse(body));
+        	const data = JSON.parse(body);
+        	if (data.status) {
+                res.sendStatus(404);
+            } else {
+            	res.json(data);
+            }
         }
     });
 }
@@ -38,7 +41,6 @@ module.exports.getChampInfo = function (req, res) {
 	const championID = req.params.championID;
 	const region = "na";
 	const url = "https://" + region + ".api.pvp.net/api/lol/" + region + "/v1.2/champion/" + championID + "?api_key=" + leagueKey;
-	console.log(url);
 	request({ uri: url, method: "GET"}, function(err, response, body){
 		if (err) {
 			res.sendStatus(404);
