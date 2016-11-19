@@ -27,9 +27,11 @@ app.get('/', function(req,res){
 });
 
 const userGamesController = require("./server/controller/usergames.controller");
-
+const gameController = require("./server/controller/game.controller");
+// Game Controller
+app.post("/api/game", gameController.addGame);
+// User Game Controller
 app.get("/api/usergames/:summonerName/:region", userGamesController.getGames);
-
 app.get("/api/champs/:championID", userGamesController.getChampInfo);
 
 app.listen('3000', function(){
