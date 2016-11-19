@@ -1,7 +1,7 @@
 .container {
     margin-top: 4%;
 }
-.modal h4, .container h3 {
+.container h4, .container h3 {
     text-align: center;
 }
 .home #viewGameStats, a {
