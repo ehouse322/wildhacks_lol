@@ -30,6 +30,8 @@ const userGamesController = require("./server/controller/usergames.controller");
 
 app.get("/api/usergames/:summonerName/:region", userGamesController.getGames);
 
+app.get("/api/champs/:championID", userGamesController.getChampInfo);
+
 app.listen('3000', function(){
     console.log("Listening on port 3000...");
 });
