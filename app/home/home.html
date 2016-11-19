@@ -2,7 +2,15 @@
     <div class="home">
         <h3>League Live Stats</h3>
         <div class="col-md-6 col-md-offset-3">
-            <input class="form-control" placeholder="User Tag" id="userid"/>
+            <div class="col-md-10">
+                <input class="form-control" placeholder="User Tag" id="userid" ng-model="name" ng-enter="getGames(name, region)"/>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" ng-model="region">
+                    <option>na</option>
+                    <option>eu</option>
+                </select>
+            </div>
         </div>
     </div>
 </div>
