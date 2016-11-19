@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended': 'false'}));
 
 app.get('/', function(req,res){
-    res.sendFile(__dirname + "/app/index.html");
+    res.sendFile(__dirname + "/index.html");
 });
 
 app.listen('3000', function(){
