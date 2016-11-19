@@ -9,8 +9,7 @@ mongoose.Promise = promise;
 
 const dbURI = "mongodb://league:same@ds157677.mlab.com:57677/wildhackslol";
 const options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },  
-                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } }}; 
-const leagueKey = process.env.LEAGUE_CRED;
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } }};
 mongoose.connect(dbURI, options);
 
 app.use(bodyParser.json());
@@ -29,7 +28,7 @@ app.get('/', function(req,res){
 
 const userGamesController = require("./server/controller/usergames.controller");
 
-app.get("/api/usergames/:userid", userGamesController.getGames);
+app.get("/api/usergames/:summonerName/:region", userGamesController.getGames);
 
 app.listen('3000', function(){
     console.log("Listening on port 3000...");
