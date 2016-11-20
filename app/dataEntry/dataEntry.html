@@ -2,8 +2,8 @@
   <h3>{{game.name}}</h3>
   <h4>Game Key: {{gameKey}}</h4>
   <div class="row">
-    <btn class="btn btn-primary" ng-if="!game.startTime" ng-click="startGame(game)">Start Game</btn>
-    <btn class="btn btn-warning" ng-if="game.startTime && !game.endTime" ng-click="endGame(game)">End Game</btn>
+    <btn class="btn btn-primary col-md-offset-3 col-md-6" ng-if="!game.startTime" ng-click="startGame(game)">Start Game</btn>
+    <btn class="btn btn-warning col-md-offset-3 col-md-6" ng-if="game.startTime && !game.endTime" ng-click="endGame(game)">End Game</btn>
   </div>
   <br/>
   <div class="row">
@@ -72,29 +72,29 @@
           <table class="table table-striped table-hover ">
             <thead>
               <tr>
-                <th bgcolor="#ff6961" align="right" colspan="2"><font color="#ffffff"><input class="form-control" ng-model="game.redName" ng-enter="updateDB()"/></font></th>
+                <th bgcolor="#ff6961" align="right" colspan="2"><input style="color:#ffffff" class="form-control" ng-model="game.redName" ng-enter="updateDB()" placeholder="Red Team Name"/></th>
               </tr>
             </thead>
             <tbody>
               <tr> <!-- Top -->
-                <td>Darshan</td>
-                <td>4 <btn class="btn btn-xs">+</btn> /3 <btn class="btn btn-xs">+</btn> /3 <btn class="btn btn-xs">+</btn></td>
+                <td><input ng-model="game.red[0].name" ng-enter="updateDB()" class="form-control" placeholder="Top"/></td>
+                <td>{{game.red[0].kills}} <btn class="btn btn-xs">+</btn> {{game.red[0].assists}} <btn class="btn btn-xs">+</btn> {{game.red[0].deaths}} <btn class="btn btn-xs">+</btn> </td>
               </tr>
               <tr> <!-- Jungle -->
-                <td>Xmithie</td>
-                <td>1 <btn class="btn btn-xs">+</btn> /3 <btn class="btn btn-xs">+</btn> /3 <btn class="btn btn-xs">+</btn></td>
+                <td><input ng-model="game.red[1].name" ng-enter="updateDB()" class="form-control" placeholder="Jungle"/></td>
+                <td>{{game.red[1].kills}} <btn class="btn btn-xs">+</btn> {{game.red[1].assists}} <btn class="btn btn-xs">+</btn> {{game.red[1].deaths}} <btn class="btn btn-xs">+</btn> </td>
               </tr>
               <tr> <!-- Mid -->
-                <td>Huhi</td>
-                <td>0 <btn class="btn btn-xs">+</btn> /1 <btn class="btn btn-xs">+</btn> /3 <btn class="btn btn-xs">+</btn></td>
+                <td><input ng-model="game.red[2].name" ng-enter="updateDB()" class="form-control" placeholder="Mid"/></td>
+                <td>{{game.red[2].kills}} <btn class="btn btn-xs">+</btn> {{game.red[2].assists}} <btn class="btn btn-xs">+</btn> {{game.red[2].deaths}} <btn class="btn btn-xs">+</btn> </td>
               </tr>
               <tr> <!-- ADC -->
-                <td>Stixxay</td>
-                <td>8 <btn class="btn btn-xs">+</btn> /0 <btn class="btn btn-xs">+</btn> /3 <btn class="btn btn-xs">+</btn></td>
+                <td><input ng-model="game.red[3].name" ng-enter="updateDB()" class="form-control" placeholder="ADC"/></td>
+                <td>{{game.red[3].kills}} <btn class="btn btn-xs">+</btn> {{game.red[3].assists}} <btn class="btn btn-xs">+</btn> {{game.red[3].deaths}} <btn class="btn btn-xs">+</btn> </td>
               </tr>
               <tr> <!-- Support -->
-                <td>Aphromoo</td>
-                <td>4 <btn class="btn btn-xs">+</btn> /3 <btn class="btn btn-xs">+</btn> /13 <btn class="btn btn-xs">+</btn></td>
+                <td><input ng-model="game.red[4].name" ng-enter="updateDB()" class="form-control" placeholder="Support"/></td>
+                <td>{{game.red[4].kills}} <btn class="btn btn-xs">+</btn> {{game.red[4].assists}} <btn class="btn btn-xs">+</btn> {{game.red[4].deaths}} <btn class="btn btn-xs">+</btn> </td>
               </tr>
             </tbody>
           </table> 
@@ -103,36 +103,36 @@
           <table class="table table-striped table-hover ">
             <thead>
               <tr>
-                <th bgcolor="#6699CC" align="right" colspan="2"><font color="#ffffff"><input class="form-control" ng-model="game.blueName" ng-enter="updateDB()"/></font></th>
+                <th bgcolor="#6699CC" align="right" colspan="2"><input style="color:#ffffff" class="form-control" ng-model="game.blueName" ng-enter="updateDB()" placeholder="Blue Team Name"/></th>
               </tr>
             </thead>
             <tbody>
               <tr> <!-- Top -->
-                <td>Youngbuck</td>
-                <td>0 <btn class="btn btn-xs">+</btn> /10 <btn class="btn btn-xs">+</btn> /0 <btn class="btn btn-xs">+</btn></td>
+                <td><input ng-model="game.blue[0].name" ng-enter="updateDB()" class="form-control" placeholder="Top"/></td>
+                <td>{{game.blue[0].kills}} <btn class="btn btn-xs">+</btn> {{game.blue[0].assists}} <btn class="btn btn-xs">+</btn> {{game.blue[0].deaths}} <btn class="btn btn-xs">+</btn> </td>
               </tr>
               <tr> <!-- Jungle -->
-                <td>Airwaks</td>
-                <td>4 <btn class="btn btn-xs">+</btn> /2 <btn class="btn btn-xs">+</btn> /3 <btn class="btn btn-xs">+</btn></td>
+                <td><input ng-model="game.blue[1].name" ng-enter="updateDB()" class="form-control" placeholder="Jungle"/></td>
+                <td>{{game.blue[1].kills}} <btn class="btn btn-xs">+</btn> {{game.blue[1].assists}} <btn class="btn btn-xs">+</btn> {{game.blue[1].deaths}} <btn class="btn btn-xs">+</btn> </td>
               </tr>
               <tr> <!-- Mid -->
-                <td>SorenXD</td>
-                <td>2 <btn class="btn btn-xs">+</btn> /5 <btn class="btn btn-xs">+</btn> /3 <btn class="btn btn-xs">+</btn></td>
+                <td><input ng-model="game.blue[2].name" ng-enter="updateDB()" class="form-control" placeholder="Mid"/></td>
+                <td>{{game.blue[2].kills}} <btn class="btn btn-xs">+</btn> {{game.blue[2].assists}} <btn class="btn btn-xs">+</btn> {{game.blue[2].deaths}} <btn class="btn btn-xs">+</btn> </td>
               </tr>
               <tr> <!-- ADC -->
-                <td>Freeze</td>
-                <td>4 <btn class="btn btn-xs">+</btn> /3 <btn class="btn btn-xs">+</btn> /0 <btn class="btn btn-xs">+</btn></td>
+                <td><input ng-model="game.blue[3].name" ng-enter="updateDB()" class="form-control" placeholder="ADC"/></td>
+                <td>{{game.blue[3].kills}} <btn class="btn btn-xs">+</btn> {{game.blue[3].assists}} <btn class="btn btn-xs">+</btn> {{game.blue[3].deaths}} <btn class="btn btn-xs">+</btn> </td>
               </tr>
               <tr> <!-- Support -->
-                <td>Unlimited</td>
-                <td>14 <btn class="btn btn-xs">+</btn> /13 <btn class="btn btn-xs">+</btn> /13 <btn class="btn btn-xs">+</btn></td>
+                <td><input ng-model="game.blue[4].name" ng-enter="updateDB()" class="form-control" placeholder="Support"/></td>
+                <td>{{game.blue[4].kills}} <btn class="btn btn-xs">+</btn> {{game.blue[4].assists}} <btn class="btn btn-xs">+</btn> {{game.blue[4].deaths}} <btn class="btn btn-xs">+</btn> </td>
               </tr>
             </tbody>
           </table> 
       </div>
   </div>
   <div class="row">
-    <btn class="btn btn-default col-md-8 col-md-offset-2">
+    <btn class="btn btn-default col-md-8 col-md-offset-2" ng-click="updateDB()">
       Update User Table
     </btn>
   </div>

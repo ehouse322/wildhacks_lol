@@ -1,39 +1,31 @@
 <div class="container home">
     <a data-toggle="modal" data-target="#configure">Configure</a>
     <h3>League Live Stats</h3>
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <div class="col-md-2">
-                <select class="form-control" ng-model="region">
-                    <option>na</option>
-                    <option>eu</option>
-                </select>
-            </div>
-            <div class="col-md-10">
-            	<input class="form-control" placeholder="User Tag" id="userid" ng-model="name" ng-enter="getGames(name, region)"/>
-            </div>
+            <table class="table table-striped table-hover ">
+              <thead>
+                <tr>
+                  <th bgcolor="#eaecee" colspan="4" style="text-align:center">Live Games</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Counter Logic Gaming</td>
+                  <td>v</td>
+                  <td>Copenhagen Wolves</td>
+                  <td>EU</td>
+                </tr>
+                <tr>
+                  <td>Fnatic</td>
+                  <td>v</td>
+                  <td>H2K</td>
+                  <td>EU</td>
+                </tr>
+              </tbody>
+            </table> 
         </div>
     </div>
-    <br>
-    <div class="row">
-    	<div class="col-md-6 col-md-offset-3">
-	        <div class="panel panel-default" ng-if="gameInfo=='success'" ng-click="COOL" id="viewGameStats">
-	        	<div class="panel-body">
-	        		View Game Stats
-	    		</div>
-			</div>
-			<div class="panel panel-danger" ng-if="gameInfo=='error'" ng-click="COOL">
-	        	<div class="panel-heading">
-	        		No Game Found
-	    		</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<input class="form-control" placeholder="Champion ID" ng-model="championID" ng-enter="getChampInfo(championID)">
-		</div>
-	</div> -->
 </div>
 <!-- Configure Modal -->
 <div class="modal fade" id="configure" tabindex="-1" role="dialog">
@@ -73,32 +65,4 @@
             </div>
         </div>
     </div>
-</div>
-<!-- Live Games -->
-<div class="container">
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<table class="table table-striped table-hover ">
-			  <thead>
-				<tr>
-				  <th bgcolor="#eaecee" colspan="4" style="text-align:center">Live Games</th>
-				</tr>
-			  </thead>
-			  <tbody>
-				<tr>
-				  <td>Counter Logic Gaming</td>
-				  <td>v</td>
-				  <td>Copenhagen Wolves</td>
-				  <td>EU</td>
-				</tr>
-				<tr>
-				  <td>Fnatic</td>
-				  <td>v</td>
-				  <td>H2K</td>
-				  <td>EU</td>
-				</tr>
-			  </tbody>
-			</table> 
-		</div>
-	</div>
 </div>
