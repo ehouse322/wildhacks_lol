@@ -10,3 +10,7 @@
 #configure {
     margin-top: 5%;
 }
+
+.form-inline {
+	width: 40px;
+}
