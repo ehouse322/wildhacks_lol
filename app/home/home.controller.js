@@ -1,10 +1,18 @@
 (function(){
     angular.module("leagueOfScrubs")
-    .controller("HomeController",["$scope", "$state", "$http", function($scope, $state, $http){
+    .controller("HomeController",["$scope", "$state", "$http", "$interval", function($scope, $state, $http, $interval){
         $scope.action = "Create";
-        $http.get("/api/game").success(function(data){
-            $scope.games = data;
-        })
+        var getData = function(){
+            $http.get("/api/game").success(function(data){
+                $scope.games = data;
+            });
+        }
+        getData();
+        var interval = $interval(getData, 4000);
+        $scope.$on("$destroy", function(){
+            $interval.cancel(interval);
+            interval = undefined;
+        });
         $scope.submitForm = function (action) {
             if (action == "Create") {
                 var champions = [0,1,2,3,4].map(function(num){
