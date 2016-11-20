@@ -36,3 +36,6 @@ body {
     position: relative;
     top: 15px;
 }
+.gamefeed tr {
+    cursor: pointer;
+}

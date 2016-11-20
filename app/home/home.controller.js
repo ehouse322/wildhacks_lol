@@ -5,6 +5,20 @@
         var getData = function(){
             $http.get("/api/game").success(function(data){
                 $scope.games = data;
+                $scope.games.forEach(function(game){
+                    if (game.startTime && !game.endTime) {
+                        var ms = new Date() - new Date(game.startTime);
+                        var timeValues = getTimeValues(ms);
+                    } else {
+                        var ms = new Date(game.endTime) - new Date(game.startTime);
+                        var timeValues = getTimeValues(ms);
+                    }
+                    var string = "";
+                    string += ((Math.floor(timeValues.hours / 10) == 0) ? "0" + timeValues.hours : timeValues.hours) + ":";
+                    string += ((Math.floor(timeValues.minutes / 10) == 0) ? "0" + timeValues.minutes : timeValues.minutes) + ":";
+                    string += (Math.floor(timeValues.seconds / 10) == 0) ? "0" + timeValues.seconds : timeValues.seconds;
+                    game.gameLength = string;
+                })
             });
         }
         getData();
@@ -53,6 +67,13 @@
         }
         $scope.getGameInfo = function (game) {
             $state.go("game", {"id": game._id});
+        }
+        var getTimeValues = function (ms) {
+            return {
+                seconds : parseInt(ms / 1000) % 60,
+                minutes : parseInt(ms / (1000*60)) % 60,
+                hours : parseInt(ms / (1000*60*60)) % 24
+            };
         }
     }]);
 }());

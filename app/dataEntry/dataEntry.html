@@ -9,7 +9,7 @@
     <h4>Game Key: {{gameKey}}</h4>
     <div class="row">
       <btn class="btn btn-primary col-md-offset-3 col-md-6" ng-if="!game.startTime" ng-click="startGame(game)">Start Game</btn>
-      <h3 ng-if="game.startTime">{{gameLength.hours}}:{{gameLength.minutes}}:{{gameLength.seconds}}</h3>
+      <h3 ng-if="game.startTime">{{gameLength}}</h3>
     </div>
     <br/>
     <div class="row">

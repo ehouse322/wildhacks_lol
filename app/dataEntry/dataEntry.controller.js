@@ -113,10 +113,16 @@
             });
         }
         var getTimeValues = function (ms) {
-            $scope.gameLength = {};
-            $scope.gameLength.seconds = parseInt(ms / 1000) % 60 ;
-            $scope.gameLength.minutes = parseInt(ms / (1000*60)) % 60;
-            $scope.gameLength.hours = parseInt(ms / (1000*60*60)) % 24;
+            var values = {
+                seconds : parseInt(ms / 1000) % 60,
+                minutes : parseInt(ms / (1000*60)) % 60,
+                hours : parseInt(ms / (1000*60*60)) % 24
+            };
+            var string = "";
+            string += ((Math.floor(values.hours / 10) == 0) ? "0" + values.hours : values.hours) + ":";
+            string += ((Math.floor(values.minutes / 10) == 0) ? "0" + values.minutes : values.minutes) + ":";
+            string += (Math.floor(values.seconds / 10) == 0) ? "0" + values.seconds : values.seconds;
+            $scope.gameLength = string;
         }
         var getWinPercentage = function (game) {
             var red = $scope.game.red;
