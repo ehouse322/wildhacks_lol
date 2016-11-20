@@ -58,6 +58,8 @@
             $scope.game.winner = team;
             $scope.game[team].winPercentage = 100;
             $scope.game[getOpponent(team)].winPercentage = 0;
+            var val = { time: new Date,  percent: (team == 'red') ? 100 : 0};
+            $scope.game.red.winPercentageList.push(val);
             $interval.cancel($scope.timer);
             $scope.timer = undefined;
             $http.put("/api/game", $scope.game).success(function(){
