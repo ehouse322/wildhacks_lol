@@ -119,153 +119,49 @@
             $scope.gameLength.hours = parseInt(ms / (1000*60*60)) % 24;
         }
         var getWinPercentage = function (game) {
-            var funcs = [ function (kda){
-                var k;
-                var d;
-                var a = 0.1;
-                if (kda.kills<3){
-                    k = 1;
-                } else if (kda.kills<6){
-                    k = 0.9;
-                } else {
-                    k = 0.8;
-                }
-                if (kda.deaths<3){
-                    d = -0.5;
-                } else if (kda.deaths<6){
-                    d = -0.4;
-                } else {
-                    d = -0.35;
-                }
-                return kda.kills*k + kda.deaths*d + kda.assists*a;
-            }, function (kda){
-                var k;
-                var d;
-                var a;
-                if (kda.kills<3){
-                    k = 1.2;
-                } else if (kda.kills<6){
-                    k = 1.1;
-                } else {
-                    k = 1.0;
-                }
-                if (kda.deaths<3){
-                    d = -0.4;
-                } else {
-                    d = -0.3;
-                }
-                if (kda.assists<4){
-                    a = 0.2;
-                } else {
-                    a = 0.17;
-                }
-                return kda.kills*k + kda.deaths*d + kda.assists*a;
-            }, function (kda){
-                var k;
-                var d;
-                var a = 0.1;
-                if (kda.kills<3){
-                    k = 1.3;
-                } else if (kda.kills<6){
-                    k = 1.1;
-                } else {
-                    k = 1.0;
-                }
-                if (kda.deaths<3){
-                    d = -0.6;
-                } else if (kda.deaths<6){
-                    d = -0.5;
-                } else {
-                    d = -0.45;
-                }
-                return kda.kills*k + kda.deaths*d + kda.assists*a;
-            }, function (kda){
-                var k;
-                var d;
-                var a = 0.1;
-                if (kda.kills<3){
-                    k = 1.4;
-                } else if (kda.kills<6){
-                    k = 1.2;
-                } else {
-                    k = 1.1;
-                }
-                if (kda.deaths<3){
-                    d = -0.6;
-                } else if (kda.deaths<6){
-                    d = -0.5;
-                } else {
-                    d = -0.45;
-                }
-                return kda.kills*k + kda.deaths*d + kda.assists*a;
-            }, function (kda){
-                var k;
-                var d;
-                var a;
-                if (kda.kills<3){
-                    k = 0.7;
-                } else if (kda.kills<6){
-                    k = 0.6;
-                } else {
-                    k = 0.55;
-                }
-                if (kda.deaths<3){
-                    d = -0.3;
-                } else if (kda.deaths<6){
-                    d = -0.25;
-                } else {
-                    d = -0.3;
-                }
-                if (kda.assists<4){
-                    a = 0.7;
-                } else if (kda.assists<8){
-                    a = 0.6;
-                } else {
-                    a = 0.55;
-                }
-                return kda.kills*k + kda.deaths*d + kda.assists*a;
-            }]
             var red = $scope.game.red;
             var blue = $scope.game.blue;
-            var redValue = red.summoners.reduce(function(accum, current, i){
-                return accum + funcs[i].call(undefined, current);
-            }, 0);
-            var blueValue = blue.summoners.reduce(function(accum, current, i){
-                return accum + funcs[i].call(undefined, current);
-            }, 0);
-            redValue += gold_calc(red.gold) + tower_calc(red.towers) + drag_calc(red.dragons) + baron_calc(red.barons);
-            blueValue += gold_calc(blue.gold) + tower_calc(blue.towers) + drag_calc(blue.dragons) + baron_calc(blue.barons);
-            blue.winPercentage = Math.floor(blueValue/(blueValue+redValue)*100); // Calculate blue side chance of winning
-            red.winPercentage = Math.floor(redValue/(blueValue+redValue)*100); // Calculate red side chance of winning
+            var bSum = blue.kills + blue.towers + blue.barons + blue.dragons + blue.gold - red.gold;
+            var rSum = red.kills + red.towers + red.barons + red.dragons + red.gold - blue.gold;
+            var tSum = bSum + rSum;
+            var bGoldweight = 0;
+            if (Math.abs(blue.gold - red.gold) < 0.49) {
+                bGoldWeight = blue.gold - red.gold * 0.49
+            } else if (Math.abs(blue.gold - red.gold) < 1.49) {
+                bGoldWeight = blue.gold - red.gold * 1.2
+            } else {
+                bGoldWeight = blue.gold - red.gold * 2
+            }
+            var rGoldWeight = 0;
+            if (Math.abs(red.gold - blue.gold) < 0.6) {
+                rGoldWeight = red.gold - blue.gold * 0.6
+            } else if (Math.abs(red.gold - blue.gold) < 1.5) {
+                rGoldWeight = red.gold - blue.gold * 1.3
+            } else {
+                rGoldWeight = red.gold - blue.gold * 2
+            }
+            var bScore;
+            var rScore;
+            if (tSum < 3 && bSum > rSum) {
+                bScore = 1,
+                rScore = 0.65
+            } else if (tSum < 3 && rSum > bSum) {
+                rscore = 1,
+                bScore = 0.65
+            } else if (tSum < 10) {
+                bScore = (blue.kills + (blue.towers * 1.4) + (blue.barons * 2.5) + (blue.dragons * 1.2) + blue.gold - red.gold) * 0.75   
+                rScore = (red.kills + (red.towers * 1.4) + (red.barons * 2.5) + (red.dragons * 1.2) + red.gold - blue.gold) * 0.75
+            } else if (tSum < 20) {
+                bScore = (blue.kills + (blue.towers * 1.7) + (blue.barons * 2.8) + (blue.dragons * 1.3) + blue.gold - red.gold) * 2  
+                rScore = (red.kills + (red.towers * 1.7) + (red.barons * 2.8) + (red.dragons * 1.3) + red.gold - blue.gold) * 2
+            } else {
+                bScore = ((blue.kills * 2) + (blue.towers * 6) + (blue.barons * 10) + (blue.dragons * 2) + (blue.gold - red.gold))
+                rScore = ((red.kills * 2) + (red.towers * 6) + (red.barons * 10) + (red.dragons * 2) + (red.gold - blue.gold))
+            }
+            blue.winPercentage = Math.floor(bScore/(bScore+rScore)*100); // Calculate blue side chance of winning
+            red.winPercentage = Math.floor(rScore/(bScore+rScore)*100); // Calculate red side chance of winning
             var time = new Date();
             red.winPercentageList.push({time: time, percent: red.winPercentage});
-        }
-        
-        function gold_calc(gold){
-            if (gold < 50) {
-                return gold*3;
-            } else {
-                return gold*2.95;
-            }
-        }
-        function tower_calc(towers) {
-            var t;
-            if (towers<2) {
-                t = 5;
-            } else if (towers <7){
-                t = 3;
-            } else if (towers < 10) {
-                t = 3.5;
-            } else {
-                t = 3.8;
-            }
-            return towers*t;
-        }
-        function drag_calc(dragons) {
-            return dragons*4;
-        }
-        function baron_calc(barons) {
-            return barons*8;
         }
         function getOpponent(team) {
             return team == 'red' ? 'blue' : 'red';
