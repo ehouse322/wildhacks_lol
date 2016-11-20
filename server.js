@@ -12,6 +12,8 @@ const options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS
                 replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } }};
 mongoose.connect(dbURI, options);
 
+app.set('port',(process.env.PORT || 8080));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -38,6 +40,6 @@ app.put("/api/game", gameController.editGame);
 app.get("/api/event", eventController.getEvents);
 app.post("/api/event", eventController.addEvent);
 
-app.listen('3000', function(){
-    console.log("Listening on port 3000...");
+app.listen(app.get('port'), function(){
+    console.log("Listening on port", app.get('port'));
 });
