@@ -71,6 +71,9 @@
         }
         $scope.updateValue = function (summoner, stat, team) {
             summoner[stat]++;
+            if (stat == "kills") {
+                $scope.game[team].kills++;
+            }
             $scope.saving = true;
             getWinPercentage($scope.game);
             $http.put("/api/game", $scope.game);

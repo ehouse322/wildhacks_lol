@@ -15,7 +15,7 @@
                     barons: 0,
                     dragons: 0,
                     towers: 0,
-                    gold: 0,
+                    gold: 2.5,
                     kills: 0,
                     winPercentage: 0,
                     winPercentageList: [],
