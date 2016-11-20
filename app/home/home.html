@@ -16,15 +16,15 @@
               <tbody>
                 <tr ng-repeat="game in games">
                   <td>{{game.name}}</td>
-                  <td>{{game[game.winner].name ? game[game.winner].name : game.winner}}</td>
+                  <td>{{game[game.winner].name ? game[game.winner].name : game.winner.toUpperCase()}}</td>
                   <td>
-                    {{game.red.name}} | {{game.red.winPercentage}}% 
+                    {{game.red.name ? game.red.name : "Red"}} | {{game.red.winPercentage}}% 
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger" style="width: {{game.red.winPercentage}}%"></div>
                     </div>
                     </td>
                   <td>
-                    {{game.blue.name}} | {{game.blue.winPercentage}}%
+                    {{game.blue.name ? game.blue.name : "Blue"}} | {{game.blue.winPercentage}}%
                     <div class="progress">
                       <div class="progress-bar" style="width: {{game.blue.winPercentage}}%;"></div>
                     </div>
