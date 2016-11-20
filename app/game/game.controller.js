@@ -62,6 +62,6 @@
             });
         }
         getData();
-        var interval = $interval(getData(), 3000);
+        var interval = $interval(getData, 3000);
     }]);
 }());
