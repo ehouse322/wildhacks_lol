@@ -13,10 +13,10 @@
     <br/>
     <div class="row">
       <div class="col-md-4 col-md-offset-2">
-        <btn class="btn btn-default col-md-12" style="background:#ff6961;color:white;" ng-click="winner('red')">Red Wins</btn>
+        <btn class="btn btn-default col-md-12" style="background:#ff6961;color:white;" ng-click="winner('red')">Red Wins | {{game.red.winPercentage}}%</btn>
       </div>
       <div class="col-md-4">
-        <btn class="btn btn-default col-md-12" style="background:#6699CC;color:white;" ng-click="winner('blue')">Blue Wins</btn>
+        <btn class="btn btn-default col-md-12" style="background:#6699CC;color:white;" ng-click="winner('blue')">Blue Wins | {{game.blue.winPercentage}}%</btn>
       </div>
     </div>
     <br/>

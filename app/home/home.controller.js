@@ -2,6 +2,9 @@
     angular.module("leagueOfScrubs")
     .controller("HomeController",["$scope", "$state", "$http", function($scope, $state, $http){
         $scope.action = "Create";
+        $http.get("/api/game").success(function(data){
+            $scope.games = data;
+        })
         $scope.submitForm = function (action) {
             if (action == "Create") {
                 var champions = [0,1,2,3,4].map(function(num){
@@ -13,7 +16,9 @@
                     dragons: 0,
                     towers: 0,
                     gold: 0,
-                    kills: 0, 
+                    kills: 0,
+                    winPercentage: 0,
+                    winPercentageList: [],
                     summoners: champions
                 };
                 var form = { name: $scope.gameName, red: data, blue: data };
@@ -26,7 +31,7 @@
                     alert("Error");
                 });
             } else {
-                $http.get("/api/game/" + $scope.gameKey).success(function(data){
+                $http.get("/api/game/gameKey/" + $scope.gameKey).success(function(data){
                     if (data.length) {
                         $('#configure').modal('hide');
                         $('body').removeClass('modal-open');
@@ -38,34 +43,8 @@
                 })                
             }
         }
+        $scope.getGameInfo = function (game) {
+            $state.go("game", {"id": game._id});
+        }
     }]);
 }());
-
-// (function(){
-//     angular.module("leagueOfScrubs").controller('DemoCtrl', function($scope) {
-//         $scope.myData = {
-//         // Chart.js data structure goes here
-//         // e.g. Pie Chart Data Structure http://www.chartjs.org/docs/#doughnut-pie-chart-data-structure
-//         labels: [
-//           "Red",
-//           "Blue",
-//           "Yellow"
-//         ],
-//         datasets: [
-//           {
-//             data: [300, 50, 100],
-//             backgroundColor: [
-//               "#FF6384",
-//               "#36A2EB",
-//               "#FFCE56"
-//             ],
-//             hoverBackgroundColor: [
-//               "#FF6384",
-//               "#36A2EB",
-//               "#FFCE56"
-//             ]
-//           }
-//         ]
-//       } 
-//     })
-// }());

@@ -29,9 +29,21 @@ module.exports.getGames = function (req, res) {
         });
 }
 
-module.exports.getGame = function (req, res) {
+module.exports.getGameByKey = function (req, res) {
     Game.
         find({key: req.params.gameKey}).
+        exec().
+        then(function(games) {
+            res.json(games);
+        }).
+        catch(function(err) {
+            res.sendStatus(err);
+        });
+}
+
+module.exports.getGameById = function (req, res) {
+    Game.
+        find({_id: req.params.id}).
         exec().
         then(function(games) {
             res.json(games);

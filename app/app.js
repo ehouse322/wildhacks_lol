@@ -1,5 +1,5 @@
 (function(){
-    angular.module("leagueOfScrubs",["ui.router"], ["chart.js"])
+    angular.module("leagueOfScrubs",["ui.router","chart.js"])
         .config(function($stateProvider, $urlRouterProvider){
             $urlRouterProvider.otherwise("/");
             $stateProvider
@@ -9,7 +9,7 @@
                     controller: "HomeController"
                 })
                 .state("game", {
-                    url: "/game",
+                    url: "/game/:id",
                     templateUrl: "app/game/game.html",
                     controller: "GameController"
                 })

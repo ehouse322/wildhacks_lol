@@ -1,3 +1,6 @@
+body {
+    background: rgba(136,136,136,.11);
+}
 .container.home {
     margin-top: 4%;
 }
@@ -19,6 +22,13 @@
     z-index: 1000;
     top: 20px; left: 5px; right: 5px;
 }
-.dataEntry {
-    background: rgba(136,136,136,.11);
+.box-score p {
+	text-align: center;
+}
+.box-score td {
+	text-align: center;
+}
+.box-score-title {
+	color: white;
+	text-align: center;
 }

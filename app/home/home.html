@@ -2,25 +2,32 @@
     <a data-toggle="modal" data-target="#configure">Configure</a>
     <h3>League Live Stats</h3>
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-10 col-md-offset-1">
             <table class="table table-striped table-hover ">
               <thead>
                 <tr>
-                  <th bgcolor="#eaecee" colspan="4" style="text-align:center">Live Games</th>
+                  <th>Name</th>
+                  <th>Red | Win %</th>
+                  <th>Blue | Win %</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Counter Logic Gaming</td>
-                  <td>v</td>
-                  <td>Copenhagen Wolves</td>
-                  <td>EU</td>
-                </tr>
-                <tr>
-                  <td>Fnatic</td>
-                  <td>v</td>
-                  <td>H2K</td>
-                  <td>EU</td>
+                <tr ng-repeat="game in games">
+                  <td>{{game.name}}</td>
+                  <td>
+                    {{game.red.name}} | {{game.red.winPercentage}}% 
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger" style="width: {{game.red.winPercentage}}%"></div>
+                    </div>
+                    </td>
+                  <td>
+                    {{game.blue.name}} | {{game.blue.winPercentage}}%
+                    <div class="progress">
+                      <div class="progress-bar" style="width: {{game.blue.winPercentage}}%;"></div>
+                    </div>
+                  </td>
+                  <td><a ng-click="getGameInfo(game)">See More</a></td>
                 </tr>
               </tbody>
             </table> 
@@ -66,6 +73,3 @@
         </div>
     </div>
 </div>
-<!-- <div id="container">
-  <canvas tc-chartjs-pie="" chart-data="myData" chart-options="myOptions" chart-click="onChartClick(event)" class="ng-isolate-scope" height="1140" width="2280" style="display: block; width: 1140px; height: 570px;"></canvas>
-</div> -->

@@ -31,7 +31,8 @@ const gameController = require("./server/controller/game.controller");
 const eventController = require("./server/controller/event.controller");
 // Game Controller
 app.get("/api/game", gameController.getGames);
-app.get("/api/game/:gameKey", gameController.getGame);
+app.get("/api/game/gameKey/:gameKey", gameController.getGameByKey);
+app.get("/api/game/:id", gameController.getGameById);
 app.post("/api/game", gameController.addGame);
 app.put("/api/game", gameController.editGame);
 // Event Controller
