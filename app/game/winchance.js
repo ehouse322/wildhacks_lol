@@ -22,11 +22,18 @@ var r_drag = 0;
 var b_baron = 0;
 var r_baron = 0;
 
-var b_vector = b_top_kda.concat(b_jg_kda,b_mid_kda,b_adc_kda,b_supp_kda,b_gold,b_towers,b_drag,b_baron);
-var r_vector = r_top_kda.concat(r_jg_kda,r_mid_kda,r_adc_kda,r_supp_kda,r_gold,r_towers,r_drag,r_baron);
+//var b_vector = b_top_kda.concat(b_jg_kda,b_mid_kda,b_adc_kda,b_supp_kda,b_gold,b_towers,b_drag,b_baron);
+//var r_vector = r_top_kda.concat(r_jg_kda,r_mid_kda,r_adc_kda,r_supp_kda,r_gold,r_towers,r_drag,r_baron);
 
 var r_winchance;
 var b_winchance;
+
+// k: kill weight
+// d: death weight
+// a: assist weight
+// The following functions assign weights to the number of kills, deaths, assists (depending on role).
+// They also assign weights based on gold, tower, dragons slain, and barons slain.
+// Because the marginal value of each of these stats diminishes as more are accumulated, the weights decrease accordingly
 
 function top_kda_calc(kda){
 	var k;
@@ -165,13 +172,15 @@ function baron_calc(barons) {
 	return barons*8;
 }
 
+// Blue side raw score
 var b_score = 
 top_kda_calc(b_top_kda)+jg_kda_calc(b_jg_kda)+mid_kda_calc(b_mid_kda)+adc_kda_calc(b_adc_kda)+supp_kda_calc(b_supp_kda)+gold_calc(b_gold)+tower_calc(b_towers)+drag_calc(b_drag)+baron_calc(b_baron);
+// Red side raw score
 var r_score =
 top_kda_calc(r_top_kda)+jg_kda_calc(r_jg_kda)+mid_kda_calc(r_mid_kda)+adc_kda_calc(r_adc_kda)+supp_kda_calc(r_supp_kda)+gold_calc(r_gold)+tower_calc(r_towers)+drag_calc(r_drag)+baron_calc(r_baron);
 
-b_winchance = Math.floor(b_score/(b_score+r_score)*100);
-r_winchance = Math.floor(r_score/(b_score+r_score)*100);
+b_winchance = Math.floor(b_score/(b_score+r_score)*100); // Calculate blue side chance of winning
+r_winchance = Math.floor(r_score/(b_score+r_score)*100); // Calculate red side chance of winning
 
 console.log(b_winchance);
 console.log(r_winchance);
