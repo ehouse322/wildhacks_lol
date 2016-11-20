@@ -1,5 +1,5 @@
 (function(){
-    angular.module("leagueOfScrubs",["ui.router"])
+    angular.module("leagueOfScrubs",["ui.router"], ["chart.js"])
         .config(function($stateProvider, $urlRouterProvider){
             $urlRouterProvider.otherwise("/");
             $stateProvider
