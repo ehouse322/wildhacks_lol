@@ -7,7 +7,16 @@
                 var champions = [0,1,2,3,4].map(function(num){
                     return {kills:0, deaths:0, assists:0};
                 });
-                var form = { name: $scope.gameName, red: champions, blue: champions };
+                var data = {
+                    name: undefined,
+                    barons: 0,
+                    dragons: 0,
+                    towers: 0,
+                    gold: 0,
+                    kills: 0, 
+                    summoners: champions
+                };
+                var form = { name: $scope.gameName, red: data, blue: data };
                 $http.post("/api/game", form).success(function(data){
                     $('#configure').modal('hide');
                     $('body').removeClass('modal-open');

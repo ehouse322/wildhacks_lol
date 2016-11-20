@@ -2,14 +2,13 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var GameSchema = new Schema({
-    redName: 		String,
-    blueName: 		String,
-    red:            [],
-    blue:           [],
+    red:            Object,
+    blue:           Object,
     name:           String,
     startTime:      Date,
     endTime:        Date,
-    key:            String
+    key:            String,
+    winner: 		String
 });
 
 module.exports = mongoose.model('game', GameSchema);

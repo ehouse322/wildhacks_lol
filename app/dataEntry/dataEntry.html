@@ -14,24 +14,24 @@
               <th bgcolor="#ff6961" align="right"><font color="#551A8B">Barons</font></th>
               <th bgcolor="#ff6961" align="right"><font color="#ffffff">Dragons</font></th>
               <th bgcolor="#ff6961" align="right"><font color="#ffffff">Towers</font></th>
-              <th bgcolor="#ff6961" align="right"><font color="#f1c40f">Gold</font></th>
+              <th bgcolor="#ff6961" align="right"><font color="#f1c40f">Gold (k)</font></th>
               <th bgcolor="#ff6961" align="right"><font color="#ffffff">Kills</font></th>
             </tr>
             <tr>
-              <th><btn class="btn control-label">+</btn></th>
-              <th><btn class="btn control-label">+</btn></th>
-              <th><btn class="btn control-label">+</btn></th>
-              <th><input class="form-inline form-control" placeholder="Gold" id="gold"/></th>
-              <th><btn class="btn control-label">+</btn></th>
+              <th><btn class="btn control-label" ng-click="updateTeam('red', 'barons')">+</btn></th>
+              <th><btn class="btn control-label" ng-click="updateTeam('red', 'dragons')">+</btn></th>
+              <th><btn class="btn control-label" ng-click="updateTeam('red', 'towers')">+</btn></th>
+              <th><input class="form-inline form-control" placeholder="Gold" id="gold" ng-enter="updateDB()" ng-model="game.red.gold"/></th>
+              <th><btn class="btn control-label" ng-click="updateTeam('red', 'kills')">+</btn></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td ng-model="red.barons">0</td>
-              <td ng-model="red.dragons">0</td>
-              <td ng-model="red.towers">0</td>
-              <td ng-model="red.gold">0</td>
-              <td ng-model="red.kills">0</td>
+              <td ng-bind="game.red.barons"></td>
+              <td ng-bind="game.red.dragons"></td>
+              <td ng-bind="game.red.towers"></td>
+              <td ng-bind="game.red.gold"></td>
+              <td ng-bind="game.red.kills"></td>
             </tr>
           </tbody>
         </table> 
@@ -41,26 +41,26 @@
           <thead>
             <tr>
               <th bgcolor="#6699CC" align="right"><font color="#ffffff">Kills</font></th>
-              <th bgcolor="#6699CC" align="right"><font color="#f1c40f">Gold</font></th>
+              <th bgcolor="#6699CC" align="right"><font color="#f1c40f">Gold (k)</font></th>
               <th bgcolor="#6699CC" align="right"><font color="#ffffff">Towers</font></th>
               <th bgcolor="#6699CC" align="right"><font color="#ffffff">Dragons</font></th>
               <th bgcolor="#6699CC" align="right"><font color="#551A8B">Barons</font></th>
             </tr>
             <tr>
-              <th><btn class="btn control-label">+</btn></th>
-              <th><input class="form-inline form-control" placeholder="Gold" id="gold"/></th>
-              <th><btn class="btn control-label">+</btn></th>
-              <th><btn class="btn control-label">+</btn></th>
-              <th><btn class="btn control-label">+</btn></th>
+              <th><btn class="btn control-label" ng-click="updateTeam('blue', 'kills')">+</btn></th>
+              <th><input class="form-inline form-control" placeholder="Gold" id="gold" ng-enter="updateDB()" ng-model="game.blue.gold"/></th>
+              <th><btn class="btn control-label" ng-click="updateTeam('blue', 'towers')">+</btn></th>
+              <th><btn class="btn control-label" ng-click="updateTeam('blue', 'dragons')">+</btn></th>
+              <th><btn class="btn control-label" ng-click="updateTeam('blue', 'barons')">+</btn></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td ng-model="blue.kills">0</td>
-              <td ng-model="blue.gold">0</td>
-              <td ng-model="blue.towers">0</td>
-              <td ng-model="blue.dragons">0</td>
-              <td ng-model="blue.barons">0</td>
+              <td ng-bind="game.blue.kills"></td>
+              <td ng-bind="game.blue.gold"></td>
+              <td ng-bind="game.blue.towers"></td>
+              <td ng-bind="game.blue.dragons"></td>
+              <td ng-bind="game.blue.barons"></td>
             </tr>
           </tbody>
         </table> 
@@ -72,29 +72,17 @@
           <table class="table table-striped table-hover ">
             <thead>
               <tr>
-                <th bgcolor="#ff6961" align="right" colspan="2"><input style="color:#ffffff" class="form-control" ng-model="game.redName" ng-enter="updateDB()" placeholder="Red Team Name"/></th>
+                <th bgcolor="#ff6961" align="right" colspan="2"><input style="color:#ffffff" class="form-control" ng-model="game.red.name" ng-enter="updateDB()" placeholder="Red Team Name"/></th>
               </tr>
             </thead>
             <tbody>
-              <tr> <!-- Top -->
-                <td><input ng-model="game.red[0].name" ng-enter="updateDB()" class="form-control" placeholder="Top"/></td>
-                <td>{{game.red[0].kills}} <btn class="btn btn-xs">+</btn> {{game.red[0].assists}} <btn class="btn btn-xs">+</btn> {{game.red[0].deaths}} <btn class="btn btn-xs">+</btn> </td>
-              </tr>
-              <tr> <!-- Jungle -->
-                <td><input ng-model="game.red[1].name" ng-enter="updateDB()" class="form-control" placeholder="Jungle"/></td>
-                <td>{{game.red[1].kills}} <btn class="btn btn-xs">+</btn> {{game.red[1].assists}} <btn class="btn btn-xs">+</btn> {{game.red[1].deaths}} <btn class="btn btn-xs">+</btn> </td>
-              </tr>
-              <tr> <!-- Mid -->
-                <td><input ng-model="game.red[2].name" ng-enter="updateDB()" class="form-control" placeholder="Mid"/></td>
-                <td>{{game.red[2].kills}} <btn class="btn btn-xs">+</btn> {{game.red[2].assists}} <btn class="btn btn-xs">+</btn> {{game.red[2].deaths}} <btn class="btn btn-xs">+</btn> </td>
-              </tr>
-              <tr> <!-- ADC -->
-                <td><input ng-model="game.red[3].name" ng-enter="updateDB()" class="form-control" placeholder="ADC"/></td>
-                <td>{{game.red[3].kills}} <btn class="btn btn-xs">+</btn> {{game.red[3].assists}} <btn class="btn btn-xs">+</btn> {{game.red[3].deaths}} <btn class="btn btn-xs">+</btn> </td>
-              </tr>
-              <tr> <!-- Support -->
-                <td><input ng-model="game.red[4].name" ng-enter="updateDB()" class="form-control" placeholder="Support"/></td>
-                <td>{{game.red[4].kills}} <btn class="btn btn-xs">+</btn> {{game.red[4].assists}} <btn class="btn btn-xs">+</btn> {{game.red[4].deaths}} <btn class="btn btn-xs">+</btn> </td>
+              <tr ng-repeat="summoner in game.red.summoners track by $index"> <!-- Top -->
+                <td>
+                  <input ng-model="summoner.name" ng-enter="updateDB()" class="form-control" placeholder="{{summonerPosition[$index]}}"/>
+                </td>
+                <td>
+                  {{summoner.kills}} <btn class="btn btn-xs" ng-click="updateValue(summoner, 'kills', 'red')">+</btn> {{summoner.assists}} <btn class="btn btn-xs" ng-click="updateValue(summoner, 'assists', 'red')">+</btn> {{summoner.deaths}} <btn class="btn btn-xs" ng-click="updateValue(summoner, 'deaths', 'red')">+</btn>
+                </td>
               </tr>
             </tbody>
           </table> 
@@ -103,29 +91,15 @@
           <table class="table table-striped table-hover ">
             <thead>
               <tr>
-                <th bgcolor="#6699CC" align="right" colspan="2"><input style="color:#ffffff" class="form-control" ng-model="game.blueName" ng-enter="updateDB()" placeholder="Blue Team Name"/></th>
+                <th bgcolor="#6699CC" align="right" colspan="2"><input style="color:#ffffff" class="form-control" ng-model="game.blue.name" ng-enter="updateDB()" placeholder="Blue Team Name"/></th>
               </tr>
             </thead>
             <tbody>
-              <tr> <!-- Top -->
-                <td><input ng-model="game.blue[0].name" ng-enter="updateDB()" class="form-control" placeholder="Top"/></td>
-                <td>{{game.blue[0].kills}} <btn class="btn btn-xs">+</btn> {{game.blue[0].assists}} <btn class="btn btn-xs">+</btn> {{game.blue[0].deaths}} <btn class="btn btn-xs">+</btn> </td>
-              </tr>
-              <tr> <!-- Jungle -->
-                <td><input ng-model="game.blue[1].name" ng-enter="updateDB()" class="form-control" placeholder="Jungle"/></td>
-                <td>{{game.blue[1].kills}} <btn class="btn btn-xs">+</btn> {{game.blue[1].assists}} <btn class="btn btn-xs">+</btn> {{game.blue[1].deaths}} <btn class="btn btn-xs">+</btn> </td>
-              </tr>
-              <tr> <!-- Mid -->
-                <td><input ng-model="game.blue[2].name" ng-enter="updateDB()" class="form-control" placeholder="Mid"/></td>
-                <td>{{game.blue[2].kills}} <btn class="btn btn-xs">+</btn> {{game.blue[2].assists}} <btn class="btn btn-xs">+</btn> {{game.blue[2].deaths}} <btn class="btn btn-xs">+</btn> </td>
-              </tr>
-              <tr> <!-- ADC -->
-                <td><input ng-model="game.blue[3].name" ng-enter="updateDB()" class="form-control" placeholder="ADC"/></td>
-                <td>{{game.blue[3].kills}} <btn class="btn btn-xs">+</btn> {{game.blue[3].assists}} <btn class="btn btn-xs">+</btn> {{game.blue[3].deaths}} <btn class="btn btn-xs">+</btn> </td>
-              </tr>
-              <tr> <!-- Support -->
-                <td><input ng-model="game.blue[4].name" ng-enter="updateDB()" class="form-control" placeholder="Support"/></td>
-                <td>{{game.blue[4].kills}} <btn class="btn btn-xs">+</btn> {{game.blue[4].assists}} <btn class="btn btn-xs">+</btn> {{game.blue[4].deaths}} <btn class="btn btn-xs">+</btn> </td>
+              <tr ng-repeat="summoner in game.blue.summoners track by $index"> <!-- Top -->
+                <td><input ng-model="summoner.name" ng-enter="updateDB()" class="form-control" placeholder="{{summonerPosition[$index]}}"/></td>
+                <td>
+                  {{summoner.kills}} <btn class="btn btn-xs" ng-click="updateValue(summoner, 'kills', 'blue')">+</btn> {{summoner.assists}} <btn class="btn btn-xs" ng-click="updateValue(summoner, 'assists', 'blue')">+</btn> {{summoner.deaths}} <btn class="btn btn-xs" ng-click="updateValue(summoner, 'deaths', 'blue')">+</btn>
+                </td>
               </tr>
             </tbody>
           </table> 
