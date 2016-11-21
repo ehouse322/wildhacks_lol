@@ -1,25 +1,24 @@
-var b_top_kda = [1,0,0];
-var b_jg_kda = [0,0,0];
-var b_mid_kda = [0,0,0];
-var b_adc_kda = [0,0,0];
-var b_supp_kda = [0,0,0];
+var b_top_kda = [5,1,9];
+var b_jg_kda = [8,1,7];
+var b_mid_kda = [7,0,6];
+var b_adc_kda = [2,1,8];
+var b_supp_kda = [2,2,11];
 
-var r_top_kda = [0,0,0];
-var r_jg_kda = [0,0,0];
-var r_mid_kda = [0,0,0];
-var r_adc_kda = [0,0,0];
-var r_supp_kda = [5,0,0];
+var r_top_kda = [0,5,4];
+var r_jg_kda = [1,2,3];
+var r_mid_kda = [2,6,0];
+var r_adc_kda = [1,7,2];
+var r_supp_kda = [1,4,2];
 
+var b_gold = 53.7;
+var r_gold = 35.6;
 
-var r_gold = 6;
-var b_gold = 6;
-
-var b_towers = 1;
-var r_towers = 1;
+var b_towers = 11;
+var r_towers = 0;
 
 var b_drag = 1;
-var r_drag = 0;
-var b_baron = 0;
+var r_drag = 1;
+var b_baron = 1;
 var r_baron = 0;
 
 //var b_vector = b_top_kda.concat(b_jg_kda,b_mid_kda,b_adc_kda,b_supp_kda,b_gold,b_towers,b_drag,b_baron);
@@ -156,20 +155,42 @@ function tower_calc(towers) {
 	var t;
 	if (towers<2) {
 		t = 5;
-	} else if (towers <7){
-		t = 3;
-	} else if (towers < 10) {
-		t = 3.5;
+	} else if (towers <4){
+		t = 10;
+	} else if (towers < 7) {
+		t = 15;
+	} else if (towers < 10){
+		t = 50;
 	} else {
-		t = 3.8;
+		t = 100;
 	}
 	return towers*t;
 }
 function drag_calc(dragons) {
-	return dragons*4;
+	if (dragons<2){
+		return dragons*5;
+	} else if (dragons<3){
+		return dragons*7;
+	} else if (dragons<4){
+		return dragons*10;
+	} else if (dragons<5){
+		return dragons*15;
+	} else if (dragons<6){
+		return dragons*25;
+	} else {
+		return dragons*40;
+	}
 }
 function baron_calc(barons) {
-	return barons*8;
+	if (barons<2){
+		return barons*30;
+	} else if (barons<3){
+		return barons*60;
+	} else if (barons<4){
+		return barons*100;
+	} else {
+		return barons*200;
+	}
 }
 
 // Blue side raw score
