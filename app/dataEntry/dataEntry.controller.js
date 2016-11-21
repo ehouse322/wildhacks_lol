@@ -164,122 +164,128 @@
                 bScore = ((blue.kills * 2) + (blue.towers * 6) + (blue.barons * 10) + (blue.dragons * 2) + (blue.gold - red.gold))
                 rScore = ((red.kills * 2) + (red.towers * 6) + (red.barons * 10) + (red.dragons * 2) + (red.gold - blue.gold))
             } */
-			function top_kda_calc(kill,death,assist){
-				var k;
-				var d;
-				var a = 0.1;
-				if (kda[0]<3){
-					k = 1;
-				} else if (kda[0]<6){
-					k = 0.9;
-				} else {
-					k = 0.8;
-				}
-				if (kda[1]<3){
-					d = -0.5;
-				} else if (kda[1]<6){
-					d = -0.4;
-				} else {
-					d = -0.35;
-				}
-				return kill*k + death*d + assist*a;
-			}
-			function jg_kda_calc(kill,death,assist){
-				var k;
-				var d;
-				var a;
-				if (kda[0]<3){
-					k = 1.2;
-				} else if (kda[0]<6){
-					k = 1.1;
-				} else {
-					k = 1.0;
-				}
-				if (kda[1]<3){
-					d = -0.4;
-				} else {
-					d = -0.3;
-				}
-				if (kda[2]<4){
-					a = 0.2;
-				} else {
-					a = 0.17;
-				}
-				return kill*k + death*d + assist*a;
-			}
-			function mid_kda_calc(kill,death,assist){
-				var k;
-				var d;
-				var a = 0.1;
-				if (kda[0]<3){
-					k = 1.3;
-				} else if (kda[0]<6){
-					k = 1.1;
-				} else {
-					k = 1.0;
-				}
-				if (kda[1]<3){
-					d = -0.6;
-				} else if (kda[1]<6){
-					d = -0.5;
-				} else {
-					d = -0.45;
-				}
-				return kill*k + death*d + assist*a;
-			}
-			function adc_kda_calc(kill,death,assist){
-				var k;
-				var d;
-				var a = 0.1;
-				if (kda[0]<3){
-					k = 1.4;
-				} else if (kda[0]<6){
-					k = 1.2;
-				} else {
-					k = 1.1;
-				}
-				if (kda[1]<3){
-					d = -0.6;
-				} else if (kda[1]<6){
-					d = -0.5;
-				} else {
-					d = -0.45;
-				}
-				return kill*k + death*d + assist*a;
-			}
-			function supp_kda_calc(kill,death,assist){
-				var k;
-				var d;
-				var a;
-				if (kda[0]<3){
-					k = 0.7;
-				} else if (kda[0]<6){
-					k = 0.6;
-				} else {
-					k = 0.55;
-				}
-				if (kda[1]<3){
-					d = -0.3;
-				} else if (kda[1]<6){
-					d = -0.25;
-				} else {
-					d = -0.3;
-				}
-				if (kda[2]<4){
-					a = 0.7;
-				} else if (kda[2]<8){
-					a = 0.6;
-				} else {
-					a = 0.55;
-				}
-				return kill*k + death*d + assist*a;
-			}
+			var funcs = [ function (kda){
+                var k;
+                var d;
+                var a = 0.1;
+                if (kda.kills<3){
+                    k = 1;
+                } else if (kda.kills<6){
+                    k = 0.9;
+                } else {
+                    k = 0.8;
+                }
+                if (kda.deaths<3){
+                    d = -0.5;
+                } else if (kda.deaths<6){
+                    d = -0.4;
+                } else {
+                    d = -0.35;
+                }
+                return kda.kills*k + kda.deaths*d + kda.assists*a;
+            }, function (kda){
+                var k;
+                var d;
+                var a;
+                if (kda.kills<3){
+                    k = 1.2;
+                } else if (kda.kills<6){
+                    k = 1.1;
+                } else {
+                    k = 1.0;
+                }
+                if (kda.deaths<3){
+                    d = -0.4;
+                } else {
+                    d = -0.3;
+                }
+                if (kda.assists<4){
+                    a = 0.2;
+                } else {
+                    a = 0.17;
+                }
+                return kda.kills*k + kda.deaths*d + kda.assists*a;
+            }, function (kda){
+                var k;
+                var d;
+                var a = 0.1;
+                if (kda.kills<3){
+                    k = 1.3;
+                } else if (kda.kills<6){
+                    k = 1.1;
+                } else {
+                    k = 1.0;
+                }
+                if (kda.deaths<3){
+                    d = -0.6;
+                } else if (kda.deaths<6){
+                    d = -0.5;
+                } else {
+                    d = -0.45;
+                }
+                return kda.kills*k + kda.deaths*d + kda.assists*a;
+            }, function (kda){
+                var k;
+                var d;
+                var a = 0.1;
+                if (kda.kills<3){
+                    k = 1.4;
+                } else if (kda.kills<6){
+                    k = 1.2;
+                } else {
+                    k = 1.1;
+                }
+                if (kda.deaths<3){
+                    d = -0.6;
+                } else if (kda.deaths<6){
+                    d = -0.5;
+                } else {
+                    d = -0.45;
+                }
+                return kda.kills*k + kda.deaths*d + kda.assists*a;
+            }, function (kda){
+                var k;
+                var d;
+                var a;
+                if (kda.kills<3){
+                    k = 0.7;
+                } else if (kda.kills<6){
+                    k = 0.6;
+                } else {
+                    k = 0.55;
+                }
+                if (kda.deaths<3){
+                    d = -0.3;
+                } else if (kda.deaths<6){
+                    d = -0.25;
+                } else {
+                    d = -0.3;
+                }
+                if (kda.assists<4){
+                    a = 0.7;
+                } else if (kda.assists<8){
+                    a = 0.6;
+                } else {
+                    a = 0.55;
+                }
+                return kda.kills*k + kda.deaths*d + kda.assists*a;
+			}]
 			function gold_calc(gold){
-				if (gold < 50) {
-					return gold*3;
+				var g;
+				if (gold < 10) {
+					g = 3;
+				} else if (gold < 20){
+					g = 2.8;
+				} else if (gold < 30){
+					g = 2.7;
+				} else if (gold < 40){
+					g = 2.65;
+				} else if (gold < 50){
+					g = 2.6;
 				} else {
-					return gold*2.95;
+					g = 2.55;
 				}
+				return gold*g;
 			}
 			function tower_calc(towers) {
 				var t;
@@ -312,23 +318,28 @@
 				}
 			}
 			function baron_calc(barons) {
-	if (barons<2){
-		return barons*30;
-	} else if (barons<3){
-		return barons*60;
-	} else if (barons<4){
-		return barons*100;
-	} else {
-		return barons*200;
-	}
-}
+				if (barons<2){
+					return barons*30;
+				} else if (barons<3){
+					return barons*60;
+				} else if (barons<4){
+					return barons*100;
+				} else {
+					return barons*200;
+				}
+			}
 
+			var bScore = blue.summoners.reduce(function(accum, current, i){
+				return accum + funcs[i].call(undefined, current);
+			}, 0);
+			var rScore = red.summoners.reduce(function(accum, current, i){
+				return accum + funcs[i].call(undefined, current);
+			}, 0);
+			
 			// Blue side raw score
-			var bScore = 
-			top_kda_calc(b_top_kda)+jg_kda_calc(b_jg_kda)+mid_kda_calc(b_mid_kda)+adc_kda_calc(b_adc_kda)+supp_kda_calc(b_supp_kda)+gold_calc(b_gold)+tower_calc(b_towers)+drag_calc(b_drag)+baron_calc(b_baron);
+			var bScore += gold_calc(blue.gold)+tower_calc(blue.towers)+drag_calc(blue.dragons)+baron_calc(blue.barons);
 			// Red side raw score
-			var rScore =
-			top_kda_calc(r_top_kda)+jg_kda_calc(r_jg_kda)+mid_kda_calc(r_mid_kda)+adc_kda_calc(r_adc_kda)+supp_kda_calc(r_supp_kda)+gold_calc(r_gold)+tower_calc(r_towers)+drag_calc(r_drag)+baron_calc(r_baron);
+			var rScore += gold_calc(red.gold)+tower_calc(red.towers)+drag_calc(red.dragons)+baron_calc(red.barons);
             
 			blue.winPercentage = Math.floor(bScore/(bScore+rScore)*100); // Calculate blue side chance of winning
             red.winPercentage = Math.floor(rScore/(bScore+rScore)*100); // Calculate red side chance of winning
