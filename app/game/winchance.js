@@ -145,51 +145,59 @@ function supp_kda_calc(kda){
 	return kda[0]*k + kda[1]*d + kda[2]*a;
 }
 function gold_calc(gold){
-	if (gold < 50) {
-		return gold*3;
+	var g;
+	if (gold < 10) {
+		g = 3;;
+	} else if (gold < 20){
+		g = 2.8;
+	} else if (gold < 30) {
+		g = 2.7;
+	} else if (gold < 40) {
+		g = 2.65;
 	} else {
-		return gold*2.95;
+		g = 2.6;
 	}
+	return g*gold;
 }
 function tower_calc(towers) {
-	var t;
-	if (towers<2) {
-		t = 5;
-	} else if (towers <4){
-		t = 10;
-	} else if (towers < 7) {
-		t = 15;
-	} else if (towers < 10){
-		t = 50;
-	} else {
-		t = 100;
-	}
-	return towers*t;
-}
+			var t;
+			if (towers<2) {
+				t = 5;
+			} else if (towers <4){
+				t = 20;
+			} else if (towers < 7) {
+				t = 50;
+			} else if (towers < 10){
+				t = 500;
+			} else {
+				t = 1000;
+			}
+			return towers*t;
+		}
 function drag_calc(dragons) {
 	if (dragons<2){
 		return dragons*5;
 	} else if (dragons<3){
-		return dragons*7;
-	} else if (dragons<4){
 		return dragons*10;
+	} else if (dragons<4){
+		return dragons*50;
 	} else if (dragons<5){
-		return dragons*15;
+		return dragons*100;
 	} else if (dragons<6){
-		return dragons*25;
+		return dragons*200;
 	} else {
-		return dragons*40;
+		return dragons*400;
 	}
 }
 function baron_calc(barons) {
 	if (barons<2){
-		return barons*30;
-	} else if (barons<3){
-		return barons*60;
-	} else if (barons<4){
 		return barons*100;
+	} else if (barons<3){
+		return barons*300;
+	} else if (barons<4){
+		return barons*700;
 	} else {
-		return barons*200;
+		return barons*1000;
 	}
 }
 

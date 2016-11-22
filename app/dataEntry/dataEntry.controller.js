@@ -58,8 +58,6 @@
             $scope.game.winner = team;
             $scope.game[team].winPercentage = 100;
             $scope.game[getOpponent(team)].winPercentage = 0;
-            var val = { time: new Date,  percent: (team == 'red') ? 100 : 0};
-            $scope.game.red.winPercentageList.push(val);
             $interval.cancel($scope.timer);
             $scope.timer = undefined;
             $http.put("/api/game", $scope.game).success(function(){
@@ -71,9 +69,6 @@
         }
         $scope.updateValue = function (summoner, stat, team) {
             summoner[stat]++;
-            if (stat == "kills") {
-                $scope.game[team].kills++;
-            }
             $scope.saving = true;
             getWinPercentage($scope.game);
             $http.put("/api/game", $scope.game);
@@ -113,58 +108,13 @@
             });
         }
         var getTimeValues = function (ms) {
-            var values = {
-                seconds : parseInt(ms / 1000) % 60,
-                minutes : parseInt(ms / (1000*60)) % 60,
-                hours : parseInt(ms / (1000*60*60)) % 24
-            };
-            var string = "";
-            string += ((Math.floor(values.hours / 10) == 0) ? "0" + values.hours : values.hours) + ":";
-            string += ((Math.floor(values.minutes / 10) == 0) ? "0" + values.minutes : values.minutes) + ":";
-            string += (Math.floor(values.seconds / 10) == 0) ? "0" + values.seconds : values.seconds;
-            $scope.gameLength = string;
+            $scope.gameLength = {};
+            $scope.gameLength.seconds = parseInt(ms / 1000) % 60 ;
+            $scope.gameLength.minutes = parseInt(ms / (1000*60)) % 60;
+            $scope.gameLength.hours = parseInt(ms / (1000*60*60)) % 24;
         }
         var getWinPercentage = function (game) {
-            var red = $scope.game.red;
-            var blue = $scope.game.blue;
-/*             var bSum = blue.kills + blue.towers + blue.barons + blue.dragons + blue.gold - red.gold;
-            var rSum = red.kills + red.towers + red.barons + red.dragons + red.gold - blue.gold;
-            var tSum = bSum + rSum;
-            var bGoldweight = 0;
-            if (Math.abs(blue.gold - red.gold) < 0.49) {
-                bGoldWeight = blue.gold - red.gold * 0.49
-            } else if (Math.abs(blue.gold - red.gold) < 1.49) {
-                bGoldWeight = blue.gold - red.gold * 1.2
-            } else {
-                bGoldWeight = blue.gold - red.gold * 2
-            }
-            var rGoldWeight = 0;
-            if (Math.abs(red.gold - blue.gold) < 0.6) {
-                rGoldWeight = red.gold - blue.gold * 0.6
-            } else if (Math.abs(red.gold - blue.gold) < 1.5) {
-                rGoldWeight = red.gold - blue.gold * 1.3
-            } else {
-                rGoldWeight = red.gold - blue.gold * 2
-            }
-            var bScore;
-            var rScore;
-            if (tSum < 3 && bSum > rSum) {
-                bScore = 1,
-                rScore = 0.65
-            } else if (tSum < 3 && rSum > bSum) {
-                rscore = 1,
-                bScore = 0.65
-            } else if (tSum < 10) {
-                bScore = (blue.kills + (blue.towers * 1.4) + (blue.barons * 2.5) + (blue.dragons * 1.2) + blue.gold - red.gold) * 0.75   
-                rScore = (red.kills + (red.towers * 1.4) + (red.barons * 2.5) + (red.dragons * 1.2) + red.gold - blue.gold) * 0.75
-            } else if (tSum < 20) {
-                bScore = (blue.kills + (blue.towers * 1.7) + (blue.barons * 2.8) + (blue.dragons * 1.3) + blue.gold - red.gold) * 2  
-                rScore = (red.kills + (red.towers * 1.7) + (red.barons * 2.8) + (red.dragons * 1.3) + red.gold - blue.gold) * 2
-            } else {
-                bScore = ((blue.kills * 2) + (blue.towers * 6) + (blue.barons * 10) + (blue.dragons * 2) + (blue.gold - red.gold))
-                rScore = ((red.kills * 2) + (red.towers * 6) + (red.barons * 10) + (red.dragons * 2) + (red.gold - blue.gold))
-            } */
-			var funcs = [ function (kda){
+            var funcs = [ function (kda){
                 var k;
                 var d;
                 var a = 0.1;
@@ -269,83 +219,79 @@
                     a = 0.55;
                 }
                 return kda.kills*k + kda.deaths*d + kda.assists*a;
-			}]
-			function gold_calc(gold){
-				var g;
-				if (gold < 10) {
-					g = 3;
-				} else if (gold < 20){
-					g = 2.8;
-				} else if (gold < 30){
-					g = 2.7;
-				} else if (gold < 40){
-					g = 2.65;
-				} else if (gold < 50){
-					g = 2.6;
-				} else {
-					g = 2.55;
-				}
-				return gold*g;
-			}
-			function tower_calc(towers) {
-				var t;
-				if (towers<2) {
-					t = 5;
-				} else if (towers <4){
-					t = 10;
-				} else if (towers < 7) {
-					t = 15;
-				} else if (towers < 10){
-					t = 50;
-				} else {
-					t = 100;
-				}
-				return towers*t;
-			}
-			function drag_calc(dragons) {
-				if (dragons<2){
-					return dragons*5;
-				} else if (dragons<3){
-					return dragons*7;
-				} else if (dragons<4){
-					return dragons*10;
-				} else if (dragons<5){
-					return dragons*15;
-				} else if (dragons<6){
-					return dragons*25;
-				} else {
-					return dragons*40;
-				}
-			}
-			function baron_calc(barons) {
-				if (barons<2){
-					return barons*30;
-				} else if (barons<3){
-					return barons*60;
-				} else if (barons<4){
-					return barons*100;
-				} else {
-					return barons*200;
-				}
-			}
-
-			var bScore = blue.summoners.reduce(function(accum, current, i){
-				return accum + funcs[i].call(undefined, current);
-			}, 0);
-			var rScore = red.summoners.reduce(function(accum, current, i){
-				return accum + funcs[i].call(undefined, current);
-			}, 0);
-			
-			// Blue side raw score
-			var bScore += gold_calc(blue.gold)+tower_calc(blue.towers)+drag_calc(blue.dragons)+baron_calc(blue.barons);
-			// Red side raw score
-			var rScore += gold_calc(red.gold)+tower_calc(red.towers)+drag_calc(red.dragons)+baron_calc(red.barons);
-            
-			blue.winPercentage = Math.floor(bScore/(bScore+rScore)*100); // Calculate blue side chance of winning
-            red.winPercentage = Math.floor(rScore/(bScore+rScore)*100); // Calculate red side chance of winning
+            }]
+            var red = $scope.game.red;
+            var blue = $scope.game.blue;
+            var redValue = red.summoners.reduce(function(accum, current, i){
+                return accum + funcs[i].call(undefined, current);
+            }, 0);
+            var blueValue = blue.summoners.reduce(function(accum, current, i){
+                return accum + funcs[i].call(undefined, current);
+            }, 0);
+            redValue += gold_calc(red.gold) + tower_calc(red.towers) + drag_calc(red.dragons) + baron_calc(red.barons);
+            blueValue += gold_calc(blue.gold) + tower_calc(blue.towers) + drag_calc(blue.dragons) + baron_calc(blue.barons);
+            blue.winPercentage = Math.floor(blueValue/(blueValue+redValue)*100); // Calculate blue side chance of winning
+            red.winPercentage = Math.floor(redValue/(blueValue+redValue)*100); // Calculate red side chance of winning
             var time = new Date();
             red.winPercentageList.push({time: time, percent: red.winPercentage});
         }
+        
+        function gold_calc(gold){
+			var g;
+			if (gold < 10) {
+				g = 3;;
+			} else if (gold < 20){
+				g = 2.8;
+			} else if (gold < 30) {
+				g = 2.7;
+			} else if (gold < 40) {
+				g = 2.65;
+			} else {
+				g = 2.6;
+			}
+			return g*gold;
+		}
+        function tower_calc(towers) {
+			var t;
+			if (towers<2) {
+				t = 5;
+			} else if (towers <4){
+				t = 20;
+			} else if (towers < 7) {
+				t = 50;
+			} else if (towers < 10){
+				t = 500;
+			} else {
+				t = 1000;
+			}
+			return towers*t;
+		}
+		function drag_calc(dragons) {
+			if (dragons<2){
+				return dragons*5;
+			} else if (dragons<3){
+				return dragons*10;
+			} else if (dragons<4){
+				return dragons*50;
+			} else if (dragons<5){
+				return dragons*100;
+			} else if (dragons<6){
+				return dragons*200;
+			} else {
+				return dragons*400;
+			}
+		}
+		function baron_calc(barons) {
+			if (barons<2){
+				return barons*100;
+			} else if (barons<3){
+				return barons*300;
+			} else if (barons<4){
+				return barons*700;
+			} else {
+				return barons*1000;
+			}
+		}
         function getOpponent(team) {
             return team == 'red' ? 'blue' : 'red';
         }
